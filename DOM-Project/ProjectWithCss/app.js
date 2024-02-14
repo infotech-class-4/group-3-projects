@@ -12,7 +12,6 @@ window.addEventListener("load",async()=>{
     const {data} = await getUsers();
 
     data.forEach(user => {
-    // console.log(user.name);
 
     const option = document.createElement("option");
     option.value=user.id;
@@ -27,10 +26,8 @@ const getPhotos = (albumId)=>{
 }
 
 select.addEventListener("change",async (e)=>{
-    // console.log(e.target.value);
    const {data} = await getPhotos(e.target.value)
    makeList(data)
-   //console.log(data);
 })
 
 let likecounter = 0
@@ -40,16 +37,15 @@ const makeList = (photos)=>{
     albumContainer.innerHTML = "";
     photos.forEach((photo)=>{
         const imageContainer = document.createElement("div")
-        imageContainer.className = "photo-container"
-        //imageContainer.innerHTML =photos.completed;
+        imageContainer.className = "photo-container "
         const image = document.createElement("img")
 
         image.src = photo.url
         image.alt = photo.title
-        image.className = "photo"
+        image.className = "photo d-flex "
         image.style.width ="400px"
         image.style.borderRadius = "10px "
-        image.style.border = "2px solid black"
+        image.style.border = "5px solid white"
 
 
         // button kısmı div
@@ -86,12 +82,10 @@ const makeList = (photos)=>{
         disslikeButton.style.color = "red"
         
         dissLikeButtonDiv.append(disslikeButton, disslikeButtonContent)
-        // dissLikeButtonDiv.appendChild(disslikeButton)  
         disslikeButton.addEventListener("click", ()=>{
             disslikeButtonContent.textContent = --likecounter
         })
          
-                
         
         // delete butonu
         const deleteButtonDiv = document.createElement("div");
@@ -105,13 +99,6 @@ const makeList = (photos)=>{
             const confirmation = confirm("Silmek istediğinize emin misiniz?");
             
             if (confirmation) {
-                // image.remove();
-                // deleteButton.remove();
-                // likeButton.remove();
-                // likeButtonContent.remove();
-                // disslikeButton.remove()
-                // disslikeButtonContent.remove()
-
                 e.target.parentElement.parentElement.parentElement.remove()                
             }
         });
@@ -144,13 +131,6 @@ const makeList = (photos)=>{
         })
         
  
-        
-        
-        
-        
-        
-        
-        
         buttonContainer.append(likeButtonDiv, dissLikeButtonDiv,deleteButtonDiv)
         
         imageContainer.append(image,buttonContainer, commentContainer)
